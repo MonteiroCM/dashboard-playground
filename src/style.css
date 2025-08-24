@@ -1,79 +1,64 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.text-outline {
+  text-shadow: -1px -1px 0 #000,
+               1px -1px 0 #000,
+              -1px  1px 0 #000,
+               1px  1px 0 #000;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+.text-outline-soft {
+  text-shadow: 0 1px 0 rgba(0,0,0,0.9), 0 -1px 0 rgba(0,0,0,0.6);
 }
 
+.trophy-badge {
+  @apply rounded px-2 py-0.5 bg-amber-500/20 text-white font-semibold;
+  border: 1px solid rgba(245, 158, 11, 0.6);
+}
+
+.badge-soft-error {
+  @apply bg-red-500/20 text-red-200;
+}
+
+/* Scrollbar horizontal estilizado para tabelas */
+.custom-scroll-x::-webkit-scrollbar {
+  height: 10px;
+}
+.custom-scroll-x::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.06);
+  border-radius: 9999px;
+}
+.custom-scroll-x::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #6366F1 0%, #22D3EE 100%);
+  border-radius: 9999px;
+}
+.custom-scroll-x::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, #4F46E5 0%, #06B6D4 100%);
+}
+
+/* Firefox */
+.custom-scroll-x {
+  scrollbar-width: thin;
+  scrollbar-color: #6366F1 rgba(0,0,0,0.06);
+}
+
+/* Estilos customizados */
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Animações para o menu lateral */
+.sidebar-transition {
+  transition: all 0.3s ease-in-out;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-.card {
-  padding: 2em;
-}
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* Estilos para notificações */
+.notification-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 9999;
+  max-width: 400px;
 }
