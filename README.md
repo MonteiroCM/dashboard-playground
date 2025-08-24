@@ -1,5 +1,12 @@
-# Vue 3 + Vite
+# Vue 3 + Vite - dashboard admin
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+![Vue 3](https://img.shields.io/badge/Vue-3.5.18-4FC08D?logo=vue.js&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-7.1.2-646CFF?logo=vite&logoColor=white)
+![Vite Plugin Vue](https://img.shields.io/badge/Vite%20Plugin%20Vue-6.0.1-646CFF?logo=vite&logoColor=white)
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+### Tecnologias utilizadas
+
+- Vue 3 (^3.5.18)
+- Vite (^7.1.2)
+- @vitejs/plugin-vue (^6.0.1)
+
