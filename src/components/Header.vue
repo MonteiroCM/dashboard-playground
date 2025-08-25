@@ -23,12 +23,8 @@ const props = defineProps({
 const emit = defineEmits(['changeTheme', 'toggleSidebar'])
 
 const handleToggleSidebar = () => {
-  console.log('Header: Toggle sidebar clicado!')
   emit('toggleSidebar')
 }
-
-// Debug: logar props
-console.log('Header - sidebarOpen:', props.sidebarOpen)
 </script>
 
 <template>
