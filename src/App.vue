@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import {
   DashboardLayout,
   Header,
@@ -28,14 +28,19 @@ const navigation = [
   { name: 'Configurações', icon: '⚙️', view: 'settings' }
 ]
 
-// Não precisamos mais do array de temas
-
 const toggleSidebar = () => {
   sidebarOpen.value = !sidebarOpen.value
 }
 
+const closeSidebar = () => {
+  sidebarOpen.value = false
+}
+
 const changeView = (view) => {
   currentView.value = view
+  if (window.innerWidth < 1024) {
+    closeSidebar()
+  }
 }
 
 const changeTheme = (theme) => {
@@ -49,15 +54,19 @@ changeTheme(currentTheme.value)
 
 <template>
   <div class="min-h-screen bg-base-100">
-    <DashboardLayout v-model:sidebarOpen="sidebarOpen">
+    <DashboardLayout 
+      :sidebarOpen="sidebarOpen"
+      @update:sidebarOpen="(value) => sidebarOpen = value"
+    >
       <template #header>
-                 <Header 
-           :currentView="currentView"
-           :navigation="navigation"
-           :currentTheme="currentTheme"
-           @changeTheme="changeTheme"
-           @toggleSidebar="toggleSidebar"
-         />
+        <Header 
+          :currentView="currentView"
+          :navigation="navigation"
+          :currentTheme="currentTheme"
+          :sidebarOpen="sidebarOpen"
+          @changeTheme="changeTheme"
+          @toggleSidebar="toggleSidebar"
+        />
       </template>
       
       <template #content>
@@ -73,12 +82,11 @@ changeTheme(currentTheme.value)
           />
         </div>
         
-        <!-- Área principal simplificada -->
         <div class="card bg-base-100 shadow-xl">
           <div class="card-body">
             <h2 class="card-title text-outline">Bem-vindo ao Dashboard</h2>
             <p class="text-base-content/70">
-              Este é um dashboard de exemplo.
+              Este é um dashboard de exemplo com sidebar toggle funcional.
             </p>
             <div class="card-actions justify-start mt-4">
               <button class="btn btn-primary">Começar</button>
@@ -92,7 +100,9 @@ changeTheme(currentTheme.value)
         <Sidebar 
           :navigation="navigation"
           :currentView="currentView"
+          :collapsed="!sidebarOpen"
           @changeView="changeView"
+          @closeSidebar="closeSidebar"
         />
       </template>
     </DashboardLayout>

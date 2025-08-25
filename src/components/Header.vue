@@ -1,7 +1,7 @@
 <script setup>
 import ThemeSelector from './ThemeSelector.vue'
 
-defineProps({
+const props = defineProps({
   currentView: {
     type: String,
     required: true
@@ -13,41 +13,72 @@ defineProps({
   currentTheme: {
     type: String,
     required: true
+  },
+  sidebarOpen: {
+    type: Boolean,
+    default: false
   }
 })
 
-defineEmits(['changeTheme', 'toggleSidebar'])
+const emit = defineEmits(['changeTheme', 'toggleSidebar'])
+
+const handleToggleSidebar = () => {
+  console.log('Header: Toggle sidebar clicado!')
+  emit('toggleSidebar')
+}
+
+// Debug: logar props
+console.log('Header - sidebarOpen:', props.sidebarOpen)
 </script>
 
 <template>
   <div class="navbar bg-base-100 shadow-lg border-b border-base-300">
-    <div class="flex-none lg:hidden">
-      <label @click="$emit('toggleSidebar')" class="btn btn-square btn-ghost">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+    <!-- Botão de toggle do sidebar -->
+    <div class="flex-none">
+      <button 
+        @click="handleToggleSidebar" 
+        class="btn btn-square btn-ghost hover:bg-base-200 transition-colors duration-200"
+        :class="{ 'bg-base-200': sidebarOpen }"
+        aria-label="Toggle sidebar"
+      >
+        <svg 
+          class="w-6 h-6" 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+          :class="{ 'rotate-180': sidebarOpen }"
+        >
+          <path 
+            stroke-linecap="round" 
+            stroke-linejoin="round" 
+            stroke-width="2" 
+            d="M4 6h16M4 12h16M4 18h16"
+          ></path>
         </svg>
-      </label>
+      </button>
     </div>
     
+    <!-- Título da página atual -->
     <div class="flex-1">
-      <h1 class="text-xl font-bold text-primary text-outline">
+      <h1 class="text-xl font-bold text-primary">
         {{ navigation.find(n => n.view === currentView)?.name }}
       </h1>
     </div>
     
-    <div class="flex-none">
-             <!-- Seletor de tema -->
-       <ThemeSelector 
-         :currentTheme="currentTheme"
-         @changeTheme="$emit('changeTheme', $event)"
-       />
+    <!-- Ações do lado direito -->
+    <div class="flex-none flex items-center gap-2">
+      <!-- Seletor de tema -->
+      <ThemeSelector 
+        :currentTheme="currentTheme"
+        @changeTheme="$emit('changeTheme', $event)"
+      />
       
       <!-- Notificações -->
       <div class="dropdown dropdown-end">
-        <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle hover:bg-base-200">
           <div class="indicator">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM4.19 4.47A19.932 19.932 0 0112 2c5.514 0 9.998 2.239 13.81 5.47M19.5 8.25l-5.5 5.5-2.5-2.5M4.19 19.47A19.932 19.932 0 0112 22c5.514 0 9.998-2.239 13.81-5.47"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
             </svg>
             <span class="badge badge-xs badge-primary indicator-item"></span>
           </div>
@@ -62,7 +93,7 @@ defineEmits(['changeTheme', 'toggleSidebar'])
       
       <!-- Perfil do usuário -->
       <div class="dropdown dropdown-end">
-        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar hover:bg-base-200">
           <div class="w-10 rounded-full">
             <img alt="Avatar" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
           </div>
@@ -76,3 +107,9 @@ defineEmits(['changeTheme', 'toggleSidebar'])
     </div>
   </div>
 </template>
+
+<style scoped>
+.btn svg {
+  transition: transform 0.2s ease-in-out;
+}
+</style>
